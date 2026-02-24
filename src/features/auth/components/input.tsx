@@ -53,9 +53,9 @@ const Input: React.FC<InputProps> = ({
   );
 
   return (
-    <div className={`flex flex-col gap-1 ${containerClass}`}>
+    <div className={`flex flex-col gap-2 ${containerClass}`}>
       {label && (
-        <label className="text-sm font-medium text-gray-700">
+        <label className="text-sm font-semibold text-gray-700">
           {label}
         </label>
       )}
@@ -65,10 +65,12 @@ const Input: React.FC<InputProps> = ({
           {...props}
           type={inputType}
           className={`
-            w-full px-3 py-2 rounded border pr-10
-            focus:outline-none focus:ring-2 focus:ring-blue-500
-            transition
-            ${error ? "border-red-500" : "border-gray-300"}
+            w-full px-4 py-3 rounded-lg border-2 pr-10
+            focus:outline-none focus:border-[#4B3687] focus:ring-2 focus:ring-[#4B3687]/20
+            transition-all duration-200
+            hover:border-[#007ABF]
+            placeholder:text-gray-400
+            ${error ? "border-red-600" : "border-gray-300"}
             ${className}
           `}
         />
@@ -76,7 +78,7 @@ const Input: React.FC<InputProps> = ({
           <button
             type="button"
             onClick={() => setIsVisible((v) => !v)}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#4B3687]/20 focus:ring-offset-1"
             aria-label={isVisible ? "Masquer le mot de passe" : "Afficher le mot de passe"}
             tabIndex={-1}
           >
@@ -86,7 +88,7 @@ const Input: React.FC<InputProps> = ({
       </div>
 
       {error && (
-        <span className="mt-1 block text-sm text-red-600" role="alert">
+        <span className="mt-1 block text-sm text-red-600 font-medium" role="alert">
           {error}
         </span>
       )}

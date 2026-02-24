@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import type React from "react";
 import { z, flattenError } from "zod";
 
@@ -71,7 +71,7 @@ export default function LoginForm() {
 
   return (
     <section className="w-full space-y-6">
-      <form action="" className="flex flex-col gap-5" onSubmit={handleSubmit} noValidate>
+      <form action="" className="flex flex-col gap-6" onSubmit={handleSubmit} noValidate>
         <Input
           label="Email"
           type="email"
@@ -97,7 +97,7 @@ export default function LoginForm() {
           <div className="flex justify-end">
             <a
               href="#"
-              className="text-sm pt-3 text-black hover:text-gray-700 hover:underline transition-colors"
+              className="text-sm pt-3 text-gray-600 hover:text-[#00AFE0] hover:underline transition-colors duration-200"
             >
               Mot de passe oublié ?
             </a>
@@ -107,11 +107,20 @@ export default function LoginForm() {
           type="submit"
           variant="primary"
           size="large"
-          className="w-full rounded-xl mt-2 !text-gray-700"
+          className="w-full rounded-xl mt-2"
           disabled={isSubmitting}
         >
           {isSubmitting ? "Connexion..." : "Se connecter"}
         </Button>
+        <p className="text-sm text-gray-600 text-center">
+          Pas encore de compte ?{" "}
+          <Link
+            to="/signup"
+            className="text-[#00AFE0] hover:underline font-medium transition-colors duration-200"
+          >
+            S'inscrire
+          </Link>
+        </p>
       </form>
     </section>
   );
