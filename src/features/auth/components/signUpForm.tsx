@@ -7,6 +7,7 @@ import Input from "./input";
 import Button from "./button";
 import type { signUpInput } from "../utils/auth.models";
 import { signUp } from "../utils/signUp";
+import { useAuthStore } from "@/store/authStore";
 
 const signUpSchema = z
   .object({
@@ -46,6 +47,7 @@ async function validateInput(input: SignUpFormData): Promise<true> {
 
 export default function SignUpForm() {
   const navigate = useNavigate();
+  const setLogin = useAuthStore((state) => state.login);
   const [formData, setFormData] = useState<SignUpFormData>({
     name: "",
     email: "",
@@ -66,6 +68,7 @@ export default function SignUpForm() {
         email: formData.email,
         password: formData.password,
       });
+      setLogin({ user: { name: formData.name, email: formData.email } });
       setFormData({ name: "", email: "", password: "", confirmPassword: "" });
       navigate("/dashboard");
     } catch (err: unknown) {
@@ -148,7 +151,7 @@ export default function SignUpForm() {
         <p className="text-sm text-gray-600 text-center">
           Déjà un compte ?{" "}
           <Link
-            to="/"
+            to="/login"
             className="text-[#00AFE0] hover:underline font-medium transition-colors duration-200"
           >
             Se connecter

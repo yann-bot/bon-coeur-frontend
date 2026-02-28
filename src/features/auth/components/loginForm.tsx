@@ -7,6 +7,7 @@ import Input from "./input";
 import Button from "./button";
 import type { loginInput } from "../utils/auth.models";
 import { login } from "../utils/login";
+import { useAuthStore } from "@/store/authStore";
 
 const loginSchema = z.object({
   email: z.pipe(
@@ -36,6 +37,7 @@ const DEFAULT_REDIRECT = "/dashboard";
 export default function LoginForm() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const setLogin = useAuthStore((state) => state.login);
   const [formData, setFormData] = useState<loginInput>({ email: "", password: "" });
   const [errors, setErrors] = useState<ValidationErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -49,6 +51,7 @@ export default function LoginForm() {
     try {
       await validateInput(formData);
       await login(formData);
+      setLogin({ user: { email: formData.email } });
       setFormData({ email: "", password: "" });
       navigate(redirectTo);
     } catch (err: unknown) {
